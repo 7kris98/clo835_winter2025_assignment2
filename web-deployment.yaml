@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      imagePullSecrets:
+      - name: ecr-secret
+      containers:
+      - name: web-container
+        image: 069408709901.dkr.ecr.us-east-1.amazonaws.com/clo835_winter2025_assignment1:latest
+        ports:
+        - containerPort: 80
+
