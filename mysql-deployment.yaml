@@ -1,0 +1,32 @@
+# mysql-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  namespace: mysql-namespace
+spec:
+  replicas: 3  # Single-instance MySQL
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      imagePullSecrets:
+        - name: ecr-secret
+      containers:
+        - name: mysql
+          image: 069408709901.dkr.ecr.us-east-1.amazonaws.com/mysql-repo:mysql-v0.1
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "rootpassword"
+          ports:
+            - containerPort: 3306
+
