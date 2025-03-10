@@ -1,0 +1,37 @@
+# webapp-replicaset.yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: webapp-replicaset
+  namespace: webapp-namespace
+  labels:
+    app: employees
+spec:
+  replicas: 3  # Ensures high availability
+  selector:
+    matchLabels:
+      app: employees
+  template:
+    metadata:
+      labels:
+        app: employees
+    spec:
+      imagePullSecrets:
+        - name: ecr-secret
+      containers:
+        - name: webapp-container
+          image: 069408709901.dkr.ecr.us-east-1.amazonaws.com/myapp-repo:app-v0.1
+          env:
+            - name: DBHOST
+              value: "mysql-service.mysql-namespace.svc.cluster.local"
+            - name: DBUSER
+              value: "root"
+            - name: DBPWD
+              value: "rootpassword"
+            - name: DATABASE
+              value: "employees"
+            - name: DBPORT
+              value: "3306"
+          ports:
+            - containerPort: 8080
+
