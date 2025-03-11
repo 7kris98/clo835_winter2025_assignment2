@@ -1,11 +1,12 @@
-# mysql-replicaset.yaml
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: mysql-rs
+  name: mysql-replicaset
   namespace: mysql-namespace
+  labels:
+    app: mysql
 spec:
-  replicas: 3  # Single instance (Master MySQL)
+  replicas: 2
   selector:
     matchLabels:
       app: mysql
@@ -14,14 +15,13 @@ spec:
       labels:
         app: mysql
     spec:
+      imagePullSecrets:
+        - name: ecr-secret
       containers:
         - name: mysql
-          image: 069408709901.dkr.ecr.us-east-1.amazonaws.com/mysql-repo:mysql-v0.1
+          image: 069408709901.dkr.ecr.us-east-1.amazonaws.com/myapp-repo:mysql-v0.1
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: "rootpassword"
           ports:
             - containerPort: 3306
-      imagePullSecrets:
-        - name: ecr-secret
-
