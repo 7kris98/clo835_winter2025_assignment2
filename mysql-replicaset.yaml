@@ -3,10 +3,8 @@ kind: ReplicaSet
 metadata:
   name: mysql-replicaset
   namespace: mysql
-  labels:
-    app: mysql
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: mysql
@@ -15,13 +13,12 @@ spec:
       labels:
         app: mysql
     spec:
-      imagePullSecrets:
-        - name: ecr-secret
       containers:
-        - name: mysql
-          image: 069408709901.dkr.ecr.us-east-1.amazonaws.com/myapp-repo:mysql-v0.1
+        - name: mysql-container
+          image: mysql:latest
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: "rootpassword"
+              value: rootpassword
           ports:
             - containerPort: 3306
+

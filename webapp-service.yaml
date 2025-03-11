@@ -8,6 +8,8 @@ spec:
     app: employees
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 8080
-  type: NodePort  # Exposes the webapp on a NodePort for external access
+      port: 80       # Exposes the service on port 80 inside the cluster
+      targetPort: 8080  # Forwards traffic to container's port 8080
+      nodePort: 30000   # Exposes it externally on NodePort 30000
+  type: NodePort
+
