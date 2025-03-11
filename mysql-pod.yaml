@@ -1,20 +1,18 @@
-# mysql-pod.yaml
 apiVersion: v1
 kind: Pod
 metadata:
   name: mysql-pod
-  namespace: mysql
+  namespace: mysql-namespace
   labels:
     app: mysql
 spec:
+  imagePullSecrets:
+    - name: ecr-secret
   containers:
     - name: mysql
-      image: 069408709901.dkr.ecr.us-east-1.amazonaws.com/mysql-repo:mysql-v0.1
+      image: 069408709901.dkr.ecr.us-east-1.amazonaws.com/myapp-repo:mysql-v0.1  # Updated ECR Image
       env:
         - name: MYSQL_ROOT_PASSWORD
           value: "rootpassword"
       ports:
         - containerPort: 3306
-  imagePullSecrets:
-    - name: ecr-secret
-
