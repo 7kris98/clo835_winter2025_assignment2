@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: webapp-deployment
-  namespace: webapp-namespace
+  namespace: webapp
   labels:
     app: employees
 spec:
