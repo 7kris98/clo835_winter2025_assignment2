@@ -19,7 +19,7 @@ spec:
         - name: ecr-secret
       containers:
         - name: webapp-container
-          image: 069408709901.dkr.ecr.us-east-1.amazonaws.com/myapp-repo:app-v0.2
+          image: 069408709901.dkr.ecr.us-east-1.amazonaws.com/myapp-repo:app-v0.1
           env:
             - name: DBHOST
               value: "mysql-service.mysql.svc.cluster.local"
@@ -31,5 +31,7 @@ spec:
               value: "employees"
             - name: DBPORT
               value: "3306"
+            - name: APP_COLOR  
+              value: "pink"
           ports:
             - containerPort: 8080

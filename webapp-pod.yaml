@@ -13,13 +13,13 @@ spec:
         - containerPort: 8080
       env:
         - name: DBHOST
-          value: mysql-service.mysql.svc.cluster.local  # Verify this matches the actual MySQL service name
+          value: "mysql-service.mysql.svc.cluster.local"
         - name: DBUSER
-          value: root
+          value: "root"
         - name: DBPWD
-          value: rootpassword
+          value: "rootpassword"
         - name: DATABASE
-          value: employees
+          value: "employees"
         - name: DBPORT
           value: "3306"
       resources:
@@ -29,6 +29,7 @@ spec:
         limits:
           memory: "512Mi"
           cpu: "500m"
+
   imagePullSecrets:
     - name: ecr-secret
 
